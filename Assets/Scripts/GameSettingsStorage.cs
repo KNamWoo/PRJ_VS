@@ -8,21 +8,40 @@ public static class GameSettingsStorage
 
 	public static GameSettingsData Load()
 	{
-		if(!File.Exists(FilePath))
+		try
 		{
-			GameSettingsData defaultData = new GameSettingsData();
-			Save(defaultData);
-			return defaultData;
-		}
+			if(!File.Exists(FilePath))
+			{
+				var defaults = new GameSettingsData();
+				Save(defaults);
+				return defaults;
+			}
 
-		string json = File.ReadAllText(FilePath);
+			string json = File.ReadAllText(FilePath);
 
-		if(string.IsNullOrWhiteSpace(json))
+			if(string.IsNullOrWhiteSpace(json))
+			{
+				var defaults = new GameSettingsData();
+				Save(defaults);
+				return defaults;
+			}
+
+			var data = JsonUtility.FromJson<GameSettingsData>(json);
+			if(data == null)
+				throw new InvalidDataException("Settings file is empty");
+			data.masterVolume = Mathf.Clamp01(data.masterVolume);
+			data.bgmVolume    = Mathf.Clamp01(data.bgmVolume);
+			data.sfxVolume    = Mathf.Clamp01(data.sfxVolume);
+			data.uiVolume     = Mathf.Clamp01(data.uiVolume);
+
+			return data;
+		} catch (System.Exception e)
 		{
-			return new GameSettingsData();
+			Debug.LogWarning($"[GameSettingsStorage] Load failed, fallback to defaults: {e.Message}");
+			var defaults = new GameSettingsData();
+			Save(defaults);
+			return defaults;
 		}
-
-		return JsonUtility.FromJson<GameSettingsData>(json);
 	}
 
 	public static void Save(GameSettingsData data)
