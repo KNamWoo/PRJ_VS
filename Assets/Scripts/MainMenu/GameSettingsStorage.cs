@@ -1,4 +1,17 @@
-﻿using System.IO;
+﻿/*
+    최초 작성일:26/05/09
+    최종 변경일:26/05/17
+    
+    수정자
+    - 김남우
+    -
+    
+    목적
+    - 게임 설정 데이터를 저장하고 불러오는 기능을 개발하기 위해
+	  GameSettingsData 클래스와 연동하여 JSON 형식으로 파일에 저장하는 로직을 설계
+*/
+
+using System.IO;
 using UnityEngine;
 
 public static class GameSettingsStorage

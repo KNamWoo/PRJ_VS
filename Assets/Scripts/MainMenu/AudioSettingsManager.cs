@@ -1,3 +1,16 @@
+/*
+    최초 작성일:26/05/09
+    최종 변경일:26/05/17
+    
+    수정자
+    - 김남우
+    -
+    
+    목적
+    - AudioMixer를 활용하여 게임의 음량 설정을 관리하는 AudioSettingsManager 개발
+	- GameSettingsData와 GameSettingsStorage를 활용하여 음량 설정을 저장/불러오기 기능 구현
+*/
+
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -37,7 +50,6 @@ public class AudioSettingsManager : MonoBehaviour
 		}
 
 		instance = this;
-		DontDestroyOnLoad(gameObject);
 
 		if(audioMixer == null)
 		{
