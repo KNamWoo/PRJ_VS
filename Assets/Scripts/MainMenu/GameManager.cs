@@ -12,16 +12,43 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject escapeMenu;
+    InputAction cancelAct;
+    
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        cancelAct = InputSystem.actions.FindAction("Cancel");
+    }
+
+    void Update()
+    {
+        if(cancelAct.IsPressed()){
+            Esc();
+        }
+    }
+
     public void Btn()
     {
         SceneLoader.LoadScene(SceneName.GameBoss);
+    }
+
+    public void Esc()
+    {
+        if(SceneLoader.ThisScene() == "MainMenu")
+        {
+            return;
+        }
+        
+        escapeMenu.SetActive(!escapeMenu.activeSelf);
     }
 }

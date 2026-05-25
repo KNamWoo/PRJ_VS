@@ -26,6 +26,12 @@ public static class SceneLoader
 {
     public static SceneName TargetScene{ get; private set; }
 
+    public static string ThisScene()
+    {
+        string thisSc = SceneManager.GetActiveScene().name;
+        return thisSc;
+    }
+
     public static void LoadScene(SceneName targetScene)
     {
         TargetScene = targetScene;
