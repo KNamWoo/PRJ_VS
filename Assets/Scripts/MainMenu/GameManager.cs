@@ -12,7 +12,7 @@
 */
 
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -243,9 +243,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void moveMainMenu()
+    {
+        Time.timeScale = 1f;
+
+        CloseAllMenus();
+
+        if (escapeMenu != null)
+        {
+            escapeMenu.SetActive(false);
+        }
+
+        SceneLoader.LoadScene(SceneName.MainMenu);
+    }
+
     public void GameQuit()
     {
-        EditorApplication.isPlaying = false; // 에디터에서는 플레이 모드를 종료
-        Application.Quit(); // 빌드된 게임에서는 애플리케이션 종료
+        // 현재 상태에 따라 실행.
+        // editor일 경우 play를 중지하고, 빌드된 게임에서는 애플리케이션 종료
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false; // 에디터에서는 플레이 모드를 종료
+        #else
+            Application.Quit(); // 빌드된 게임에서는 애플리케이션 종료
+        #endif
     }
 }
