@@ -133,11 +133,13 @@ public class AudioSettingsUI : MonoBehaviour
 	public void SaveBtn()
 	{
 		audioMan.SaveSettings();
+		GameManager.instance.CloseCurrentMenu();
 	}
 
 	public void CancelBtn()
 	{
 		audioMan.CancelSettings();
-		SyncSliders();
+		//SyncSliders();
+		GameManager.instance.CloseCurrentMenu();
 	}
 }
