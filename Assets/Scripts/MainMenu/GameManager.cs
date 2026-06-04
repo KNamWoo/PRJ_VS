@@ -1,14 +1,14 @@
 /*
-    최초 작성일:26/05/17
-    최종 변경일:26/05/25
-    
-    수정자
-    - 김남우
-    -
-    
-    목적
-    - 게임의 전반적인 ManageMent를 위해
-    - Esc 메뉴와 하위 메뉴 관리
+	최초 작성일:26/05/17
+	최종 변경일:26/06/04
+
+	수정자
+	- 김남우
+	-
+
+	목적
+	- 게임의 전반적인 ManageMent를 위해
+	- Esc 메뉴와 하위 메뉴 관리
 */
 
 using System.Collections.Generic;
@@ -18,253 +18,254 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
-    public        GameObject           escapeMenu;
+	public static GameManager instance;
+	public        GameObject  escapeMenu;
 
-    [Header("Esc 메뉴 위에 뜨는 창들")]
-    public GameObject volumeSetting;
-    public GameObject equipmentDetail; // InfoMenu
+	[Header("Esc 메뉴 위에 뜨는 창들")]
+	public GameObject volumeSetting;
 
-    [Header("뒤쪽 Esc 메뉴 클릭 방지용")]
-    public GameObject modalBlocker;
+	public GameObject equipmentDetail; // InfoMenu
 
-    InputAction cancelAct;
+	[Header("뒤쪽 Esc 메뉴 클릭 방지용")]
+	public GameObject modalBlocker;
 
-    private bool isPaused = false;
+	InputAction cancelAct;
 
-    // volumeSetting, equipmentDetail 같은 현재 열린 하위 메뉴를 저장
-    private readonly Stack<GameObject> uiStack = new Stack<GameObject>();
+	private bool isPaused = false;
 
-    void Awake()
-    {
-        if(instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+	// volumeSetting, equipmentDetail 같은 현재 열린 하위 메뉴를 저장
+	private readonly Stack<GameObject> uiStack = new Stack<GameObject>();
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+	void Awake()
+	{
+		if(instance != null && instance != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
 
-    void Start()
-    {
-        cancelAct = InputSystem.actions.FindAction("Cancel");
+		instance = this;
+		DontDestroyOnLoad(gameObject);
+	}
 
-        if (cancelAct != null)
-        {
-            cancelAct.Enable();
-        }
-        else
-        {
-            Debug.LogWarning("Cancel InputAction을 찾지 못했습니다.");
-        }
+	void Start()
+	{
+		cancelAct = InputSystem.actions.FindAction("Cancel");
 
-        InitUI();
-    }
+		if(cancelAct != null)
+		{
+			cancelAct.Enable();
+		} else
+		{
+			Debug.LogWarning("Cancel InputAction을 찾지 못했습니다.");
+		}
 
-    void Update()
-    {
-        if (cancelAct != null && cancelAct.WasPressedThisFrame())
-        {
-            Esc();
-        }
-    }
+		InitUI();
+	}
 
-    private void InitUI()
-    {
-        isPaused = false;
-        Time.timeScale = 1f;
+	void Update()
+	{
+		if(cancelAct != null && cancelAct.WasPressedThisFrame())
+		{
+			Esc();
+		}
+	}
 
-        if (escapeMenu != null)
-        {
-            escapeMenu.SetActive(false);
-        }
+	private void InitUI()
+	{
+		isPaused       = false;
+		Time.timeScale = 1f;
 
-        if (volumeSetting != null)
-        {
-            volumeSetting.SetActive(false);
-        }
+		if(escapeMenu != null)
+		{
+			escapeMenu.SetActive(false);
+		}
 
-        if (equipmentDetail != null)
-        {
-            equipmentDetail.SetActive(false);
-        }
+		if(volumeSetting != null)
+		{
+			volumeSetting.SetActive(false);
+		}
 
-        if (modalBlocker != null)
-        {
-            modalBlocker.SetActive(false);
-        }
+		if(equipmentDetail != null)
+		{
+			equipmentDetail.SetActive(false);
+		}
 
-        uiStack.Clear();
-    }
+		if(modalBlocker != null)
+		{
+			modalBlocker.SetActive(false);
+		}
 
-    public void Btn()
-    {
-        SceneLoader.LoadScene(SceneName.GameBoss);
-    }
+		uiStack.Clear();
+	}
 
-    public void Esc()
-    {
-        if (SceneLoader.ThisScene() == "MainMenu")
-        {
-            return;
-        }
+	public void Btn()
+	{
+		SceneLoader.LoadScene(SceneName.GameBoss);
+	}
 
-        // 1. volumeSetting, equipmentDetail 같은 하위 메뉴가 열려 있으면
-        // 그 메뉴만 닫고 끝낸다.
-        // 그래서 게임 재개까지 가지 않는다.
-        if (uiStack.Count > 0)
-        {
-            CloseTopMenu();
-            return;
-        }
+	public void Esc()
+	{
+		if(SceneLoader.ThisScene() == "MainMenu" || SceneLoader.ThisScene() == "Loading")
+		{
+			return;
+		}
 
-        // 2. 하위 메뉴는 없고 escapeMenu만 열려 있으면 재개
-        if (isPaused)
-        {
-            Resume();
-            return;
-        }
+		// 1. volumeSetting, equipmentDetail 같은 하위 메뉴가 열려 있으면
+		// 그 메뉴만 닫고 끝낸다.
+		// 그래서 게임 재개까지 가지 않는다.
+		if(uiStack.Count > 0)
+		{
+			CloseTopMenu();
+			return;
+		}
 
-        // 3. 아무것도 안 열려 있으면 Esc 메뉴 열기
-        Pause();
-    }
+		// 2. 하위 메뉴는 없고 escapeMenu만 열려 있으면 재개
+		if(isPaused)
+		{
+			Resume();
+			return;
+		}
 
-    public void Pause()
-    {
-        isPaused = true;
-        Time.timeScale = 0f;
+		// 3. 아무것도 안 열려 있으면 Esc 메뉴 열기
+		Pause();
+	}
 
-        if (escapeMenu != null)
-        {
-            escapeMenu.SetActive(true);
-        }
-    }
+	public void Pause()
+	{
+		isPaused       = true;
+		Time.timeScale = 0f;
 
-    public void Resume()
-    {
-        isPaused = false;
-        Time.timeScale = 1f;
+		if(escapeMenu != null)
+		{
+			escapeMenu.SetActive(true);
+		}
+	}
 
-        CloseAllMenus();
+	public void Resume()
+	{
+		isPaused       = false;
+		Time.timeScale = 1f;
 
-        if (escapeMenu != null)
-        {
-            escapeMenu.SetActive(false);
-        }
-    }
+		CloseAllMenus();
 
-    public void OpenVolumeSetting()
-    {
-        OpenMenu(volumeSetting);
-    }
+		if(escapeMenu != null)
+		{
+			escapeMenu.SetActive(false);
+		}
+	}
 
-    public void OpenEquipmentDetail()
-    {
-        OpenMenu(equipmentDetail);
-    }
+	public void OpenVolumeSetting()
+	{
+		OpenMenu(volumeSetting);
+	}
 
-    public void CloseCurrentMenu()
-    {
-        if (uiStack.Count > 0)
-        {
-            CloseTopMenu();
-        }
-    }
+	public void OpenEquipmentDetail()
+	{
+		OpenMenu(equipmentDetail);
+	}
 
-    private void OpenMenu(GameObject menu)
-    {
-        if (menu == null)
-        {
-            Debug.LogWarning("열려고 하는 메뉴가 비어 있습니다.");
-            return;
-        }
+	public void CloseCurrentMenu()
+	{
+		if(uiStack.Count > 0)
+		{
+			CloseTopMenu();
+		}
+	}
 
-        // 혹시 일시정지 상태가 아닌데 하위 메뉴가 열리는 경우 방어
-        if (!isPaused)
-        {
-            Pause();
-        }
+	private void OpenMenu(GameObject menu)
+	{
+		if(menu == null)
+		{
+			Debug.LogWarning("열려고 하는 메뉴가 비어 있습니다.");
+			return;
+		}
 
-        // 뒤쪽 escapeMenu 클릭 방지
-        if (modalBlocker != null)
-        {
-            modalBlocker.SetActive(true);
-        }
+		// 혹시 일시정지 상태가 아닌데 하위 메뉴가 열리는 경우 방어
+		if(!isPaused)
+		{
+			Pause();
+		}
 
-        menu.SetActive(true);
-        uiStack.Push(menu);
-    }
+		// 뒤쪽 escapeMenu 클릭 방지
+		if(modalBlocker != null)
+		{
+			modalBlocker.SetActive(true);
+		}
 
-    private void CloseTopMenu()
-    {
-        if (uiStack.Count <= 0)
-        {
-            return;
-        }
+		menu.SetActive(true);
+		uiStack.Push(menu);
+	}
 
-        GameObject topMenu = uiStack.Pop();
+	private void CloseTopMenu()
+	{
+		if(uiStack.Count <= 0)
+		{
+			return;
+		}
 
-        if (topMenu != null)
-        {
-            if(topMenu == volumeSetting)
-            {
-                AudioSettingsManager.instance.CancelSettings();
-            }
-            topMenu.SetActive(false);
-        }
+		GameObject topMenu = uiStack.Pop();
 
-        // 하위 메뉴가 전부 닫혔으면 blocker도 끈다.
-        if (uiStack.Count == 0)
-        {
-            if (modalBlocker != null)
-            {
-                modalBlocker.SetActive(false);
-            }
-        }
-    }
+		if(topMenu != null)
+		{
+			if(topMenu == volumeSetting)
+			{
+				AudioSettingsManager.instance.CancelSettings();
+			}
 
-    private void CloseAllMenus()
-    {
-        while (uiStack.Count > 0)
-        {
-            GameObject menu = uiStack.Pop();
+			topMenu.SetActive(false);
+		}
 
-            if (menu != null)
-            {
-                menu.SetActive(false);
-            }
-        }
+		// 하위 메뉴가 전부 닫혔으면 blocker도 끈다.
+		if(uiStack.Count == 0)
+		{
+			if(modalBlocker != null)
+			{
+				modalBlocker.SetActive(false);
+			}
+		}
+	}
 
-        if (modalBlocker != null)
-        {
-            modalBlocker.SetActive(false);
-        }
-    }
+	private void CloseAllMenus()
+	{
+		while(uiStack.Count > 0)
+		{
+			GameObject menu = uiStack.Pop();
 
-    public void moveMainMenu()
-    {
-        Time.timeScale = 1f;
+			if(menu != null)
+			{
+				menu.SetActive(false);
+			}
+		}
 
-        CloseAllMenus();
+		if(modalBlocker != null)
+		{
+			modalBlocker.SetActive(false);
+		}
+	}
 
-        if (escapeMenu != null)
-        {
-            escapeMenu.SetActive(false);
-        }
+	public void moveMainMenu()
+	{
+		Time.timeScale = 1f;
 
-        SceneLoader.LoadScene(SceneName.MainMenu);
-    }
+		CloseAllMenus();
 
-    public void GameQuit()
-    {
-        // 현재 상태에 따라 실행.
-        // editor일 경우 play를 중지하고, 빌드된 게임에서는 애플리케이션 종료
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false; // 에디터에서는 플레이 모드를 종료
-        #else
+		if(escapeMenu != null)
+		{
+			escapeMenu.SetActive(false);
+		}
+
+		SceneLoader.LoadScene(SceneName.MainMenu);
+	}
+
+	public void GameQuit()
+	{
+		// 현재 상태에 따라 실행.
+		// editor일 경우 play를 중지하고, 빌드된 게임에서는 애플리케이션 종료
+#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false; // 에디터에서는 플레이 모드를 종료
+#else
             Application.Quit(); // 빌드된 게임에서는 애플리케이션 종료
-        #endif
-    }
+#endif
+	}
 }
