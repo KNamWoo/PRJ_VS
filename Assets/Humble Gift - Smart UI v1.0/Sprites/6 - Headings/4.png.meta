@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -134,15 +134,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 4_0
+      name: S
       rect:
         serializedVersion: 2
-        x: 15
-        y: 2
-        width: 9
-        height: 11
+        x: 16
+        y: 3
+        width: 7
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,155 +156,111 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 4_1
+      name: E
       rect:
         serializedVersion: 2
-        x: 23
-        y: 2
-        width: 9
-        height: 11
+        x: 24
+        y: 3
+        width: 7
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3ee09611224d6ac70800000000000000
+      spriteID: 2bf19f9df68ceef4197dc947fb2c7a43
       internalID: 8982099749623107299
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 4_2
+      name: T
       rect:
         serializedVersion: 2
-        x: 31
-        y: 2
-        width: 10
-        height: 11
+        x: 32
+        y: 3
+        width: 8
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ef41863b0d76541e0800000000000000
+      spriteID: c599a15e80144734d95dae68d0047dfa
       internalID: -2214249495721929474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 4_3
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 2
-        width: 10
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c03a2a7dbc2824e60800000000000000
-      internalID: 7945056504642708236
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 4_4
+      name: I
       rect:
         serializedVersion: 2
         x: 49
-        y: 2
-        width: 8
-        height: 11
+        y: 3
+        width: 7
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2998abeebe1badff0800000000000000
+      spriteID: 6f9426beab4c9914fa4fd55e7e3ae79d
       internalID: -10500422234371694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 4_5
+      name: N
       rect:
         serializedVersion: 2
-        x: 56
-        y: 2
-        width: 9
-        height: 11
+        x: 57
+        y: 3
+        width: 7
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c53f6934c0f320fb0800000000000000
+      spriteID: f04dc2f4053b78043b86ea951ce6dd1c
       internalID: -4683111340605770916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 4_6
+      name: G
       rect:
         serializedVersion: 2
-        x: 64
-        y: 2
-        width: 9
-        height: 11
+        x: 65
+        y: 3
+        width: 7
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 290bab33458b8ada0800000000000000
+      spriteID: 8fcc0f3a1806dc449aa725032297fd1c
       internalID: -5933289837275991918
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 4_7
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 2
-        width: 9
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 12ad942e4ec1951f0800000000000000
-      internalID: -1055780868267058655
       vertices: []
       indices: 
       edges: []
@@ -313,7 +269,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 47819897f311145478e94f06844d7519
     internalID: 0
     vertices: []
     indices: 
@@ -321,16 +277,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      4_0: -4178046375966092550
-      4_1: 8982099749623107299
-      4_2: -2214249495721929474
       4_3: 7945056504642708236
-      4_4: -10500422234371694
-      4_5: -4683111340605770916
-      4_6: -5933289837275991918
       4_7: -1055780868267058655
+      E: 8982099749623107299
+      G: -5933289837275991918
+      I: -10500422234371694
+      N: -4683111340605770916
+      S: -4178046375966092550
+      T: -2214249495721929474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

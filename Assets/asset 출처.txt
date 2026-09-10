@@ -12,3 +12,6 @@ https://azagaya.itch.io/minimalistic-ui
 
 https://creativecommons.org/licenses/by/4.0/
 (https://crusenho.itch.io/complete-ui-essential-pack)
+
+Supports Greek and Cyrillic
+(https://spicygame.itch.io/fonts)
